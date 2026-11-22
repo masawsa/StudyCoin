@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Koin Belajar – Demo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap">
+<style>
+:root{--bg:#F3F2FB;--card:#fff;--ink:#1D1B3A;--mute:#6B6990;--pri:#4B3FD6;--priT:#fff;--coin:#F5B301;--ok:#14935F;--okBg:#DDF5EA;--bad:#C93A4B;--badBg:#FBE3E6;--line:#E3E1F3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12112A;--card:#1D1C3D;--ink:#EEEDFB;--mute:#9C9AC4;--pri:#8B82FF;--priT:#12112A;--ok:#4BD39B;--okBg:#12372B;--bad:#FF7A8A;--badBg:#41202A;--line:#2D2B58;color-scheme:dark}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:500}
+#app{max-width:430px;margin:0 auto;padding:20px 18px 96px}
+h1,h2,h3,p{margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.hi{font-size:20px;font-weight:800}.sub{font-size:13px;color:var(--mute)}
+.chip{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:7px 12px;font-weight:800;font-size:14px}
+.coin{width:18px;height:18px;border-radius:50%;background:var(--coin);display:inline-block;box-shadow:inset 0 0 0 3px #00000018}
+.hero{background:var(--pri);color:var(--priT);border-radius:22px;padding:20px}
+.hero h2{font-size:22px;font-weight:800;line-height:1.25}
+.hero p{opacity:.85;font-size:14px;margin-top:6px}
+.bar{height:10px;border-radius:9px;background:#ffffff33;margin:16px 0 8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--coin);border-radius:9px;transition:width .4s}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px;font:800 16px inherit;font-family:inherit;background:var(--coin);color:#2a2000;cursor:pointer;margin-top:14px}
+.btn.pri{background:var(--pri);color:var(--priT)}.btn:disabled{opacity:.45;cursor:default}
+.btn:focus-visible,.opt:focus-visible,.tab:focus-visible{outline:3px solid var(--coin);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}
+.row{display:flex;gap:12px;justify-content:space-between;align-items:center}
+.days{display:flex;gap:6px;margin-top:12px}
+.day{flex:1;text-align:center;font-size:12px;color:var(--mute)}
+.day b{display:block;margin:0 auto 4px;width:100%;aspect-ratio:1;border-radius:10px;background:var(--bg);line-height:2.3;color:var(--mute)}
+.day.on b{background:var(--coin);color:#2a2000}
+.q{font-size:21px;font-weight:800;line-height:1.35;margin:18px 0}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px;margin-top:10px;font:700 16px inherit;font-family:inherit;color:var(--ink);cursor:pointer}
+.opt.ok{border-color:var(--ok);background:var(--okBg)}.opt.bad{border-color:var(--bad);background:var(--badBg)}
+.fb{margin-top:14px;padding:12px 14px;border-radius:12px;font-size:14px;line-height:1.5}
+.fb.ok{background:var(--okBg);color:var(--ok)}.fb.bad{background:var(--badBg);color:var(--bad)}
+.big{font-size:56px;font-weight:800;text-align:center;margin:10px 0 0}
+.c{text-align:center}
+.prize{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.prize .btn{width:auto;margin:0;padding:10px 16px;font-size:14px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav div{max-width:430px;margin:0 auto;display:flex}
+.tab{flex:1;background:none;border:0;font:700 12px inherit;font-family:inherit;color:var(--mute);padding:8px;cursor:pointer}
+.tab.on{color:var(--pri)}
+.tab span{display:block;font-size:20px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;z-index:9}
+.note{font-size:12px;color:var(--mute);text-align:center;margin-top:18px;line-height:1.5}
+.link{background:none;border:0;color:var(--mute);font:600 13px inherit;font-family:inherit;text-decoration:underline;cursor:pointer;margin-top:10px;width:100%}
+.w{display:inline-block;padding:2px 8px;border-radius:8px;margin:3px 2px}.w.ok{background:var(--okBg);color:var(--ok)}.w.bad{background:var(--badBg);color:var(--bad)}.sent{font-size:22px;font-weight:800;line-height:1.7;margin:18px 0 6px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav><div id="nav"></div></nav>
+<script>
+const BANK=[
+["She has lived in Jakarta ___ 2019.",["since","for","from","during"],0,"Gunakan since + titik waktu (2019); for + durasi."],
+["If I ___ more time, I would learn Japanese.",["have","had","will have","having"],1,"Conditional type 2: If + past simple, would + verb."],
+["Choose the word closest in meaning to “reluctant”.",["eager","unwilling","careless","joyful"],1,"Reluctant = enggan, sama dengan unwilling."],
+["The report ___ by the manager yesterday.",["wrote","was written","has written","is writing"],1,"Passive voice lampau: was/were + past participle."],
+["I’m looking forward to ___ you next week.",["see","seeing","saw","be seen"],1,"Setelah “look forward to” gunakan V-ing."],
+["He is ___ than his brother.",["more tall","taller","tallest","most tall"],1,"Adjektiva pendek memakai -er untuk perbandingan."],
+["Please turn ___ the lights before you leave.",["off","at","in","by"],0,"Phrasal verb: turn off = mematikan."],
+["By the time we arrived, the movie ___.",["already started","had already started","has already started","already starts"],1,"Dua kejadian lampau: yang lebih dulu memakai past perfect."],
+["“Postpone the meeting” means to ___ it.",["cancel","delay","start","record"],1,"Postpone = menunda, sama dengan delay."],
+["You ___ wear a helmet. It is the law.",["might","must","could","would"],1,"Must menyatakan kewajiban atau aturan."]
+];
+const TARGET=4,PER=5,PER_OK=5,BONUS=20;
+const PRIZES=[["Voucher Gratis Ongkir",50],["Voucher Diskon 10rb",120],["Voucher Diskon 25rb",250]];
+let S={coins:0,streak:3,doneToday:false,speakDone:false,days:[1,1,1,0,0,0,0],owned:[]};
+let tab='home',qs=[],qi=0,score=0,picked=null,view='home',toast='';
+try{const x=localStorage.getItem('kb_demo');if(x)S=Object.assign(S,JSON.parse(x))}catch(e){}
+const save=()=>{try{localStorage.setItem('kb_demo',JSON.stringify(S))}catch(e){}};
+const $=s=>document.querySelector(s);
+function shuffle(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1])}
+function start(){qs=shuffle(BANK).slice(0,PER);qi=0;score=0;picked=null;view='quiz';render()}
+function pick(i){if(picked!==null)return;picked=i;if(i===qs[qi][2]){score++;S.coins+=PER_OK}save();render()}
+function next(){picked=null;qi++;if(qi>=PER){finish()}else render()}
+function finish(){view='result';if(score>=TARGET&&!S.doneToday){S.coins+=BONUS;S.doneToday=true;S.streak++;S.days[3]=1}save();render()}
+function buy(i){const p=PRIZES[i];if(S.coins<p[1])return;S.coins-=p[1];S.owned.push(p[0]);save();say('Berhasil ditukar: '+p[0]);render()}
+function say(t){toast=t;render();setTimeout(()=>{toast='';render()},2200)}
+function reset(){S={coins:0,streak:3,doneToday:false,speakDone:false,days:[1,1,1,0,0,0,0],owned:[]};save();view='home';tab='home';render()}
+function go(t){tab=t;view=t==='home'?'home':'rewards';render()}
+const SPEAK=['I have been learning English for two years.','Could you tell me how to get to the station?','If I had more time, I would travel around the world.','She suggested going to the beach this weekend.','I am looking forward to meeting you tomorrow.','The meeting was postponed until next Monday.'];
+let SP={i:0,list:[],passed:0,res:null,on:false,err:'',got:false,bonus:false};
+function speakStart(){SP={i:0,list:shuffle(SPEAK).slice(0,3),passed:0,res:null,on:false,err:'',got:false,bonus:false};view='speak';render()}
+function tts(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
+function norm(s){return s.toLowerCase().replace(/[’']/g,'').replace(/[^a-z\s]/g,' ').split(/\s+/).filter(Boolean)}
+function grade(target,heard){const pool=norm(heard),t=norm(target);const ok=t.map(w=>{const k=pool.indexOf(w);if(k>-1){pool.splice(k,1);return 1}return 0});return{ok,heard,pct:Math.round(ok.filter(Boolean).length/t.length*100)}}
+function heardDone(txt){const r=grade(SP.list[SP.i],txt);SP.res=r;SP.on=false;if(r.pct>=70&&!SP.got){SP.got=true;SP.passed++;S.coins+=5;save()}render()}
+function speakErr(m){SP.on=false;SP.err=m;render()}
+async function listen(){
+ SP.err='';SP.res=null;SP.on=true;render();
+ try{
+  const C=window.Capacitor,P=C&&C.Plugins&&C.Plugins.SpeechRecognition;
+  if(P&&C.isNativePlatform&&C.isNativePlatform()){
+   const a=await P.requestPermissions();
+   if(a&&a.speechRecognition==='denied')return speakErr('Izin mikrofon ditolak. Aktifkan di pengaturan aplikasi.');
+   const r=await P.start({language:'en-US',maxResults:1,partialResults:false,popup:false});
+   const m=r&&r.matches&&r.matches[0];
+   return m?heardDone(m):speakErr('Suara tidak terdengar, coba lagi.');
+  }
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return speakErr('Browser ini belum mendukung pengenalan suara. Coba Chrome di Android atau pakai versi APK.');
+  const rec=new SR();rec.lang='en-US';rec.maxAlternatives=1;
+  rec.onresult=e=>heardDone(e.results[0][0].transcript);
+  rec.onerror=e=>speakErr(e.error==='not-allowed'?'Izin mikrofon ditolak. Izinkan mikrofon lalu coba lagi.':'Suara tidak terdengar, coba lagi.');
+  rec.onend=()=>{if(SP.on)speakErr('Suara tidak terdengar, coba lagi.')};
+  rec.start();
+ }catch(e){speakErr('Mikrofon tidak bisa dipakai di sini. Coba buka di Chrome atau pakai versi APK.')}
+}
+function speakNext(){try{speechSynthesis.cancel()}catch(e){}SP.i++;SP.res=null;SP.err='';SP.got=false;if(SP.i>=3){SP.bonus=false;if(SP.passed>=2&&!S.speakDone){S.coins+=15;S.speakDone=true;SP.bonus=true;save()}view='speakEnd'}render()}
+function speakView(){
+ if(view==='speakEnd'){const win=SP.passed>=2;return `<div class="card c" style="margin-top:40px"><p class="sub">Kalimat lolos</p><div class="big">${SP.passed}/3</div><h2 style="margin-top:10px">${win?'Speaking mantap!':'Terus berlatih'}</h2><p class="sub" style="margin-top:6px">${win?(SP.bonus?'Bonus +15 koin sudah masuk.':'Bonus speaking hari ini sudah diambil.'):'Butuh minimal 2 kalimat lolos untuk bonus.'}</p><button class="btn pri" onclick="view='home';render()">Kembali ke beranda</button></div>`}
+ const t=SP.list[SP.i],r=SP.res,words=t.split(' ');
+ let h=`<div class="top"><button class="link" style="width:auto;margin:0" onclick="try{speechSynthesis.cancel()}catch(e){}view='home';render()">Keluar</button><div class="chip"><i class="coin"></i>${S.coins}</div></div><div class="bar" style="background:var(--line)"><i style="width:${SP.i/3*100}%"></i></div><p class="sub">Kalimat ${SP.i+1} dari 3. Dengarkan, lalu ucapkan.</p>`;
+ h+=`<p class="sent">${words.map((w,i)=>r?`<span class="w ${r.ok[i]?'ok':'bad'}">${w}</span>`:w).join(' ')}</p>`;
+ h+=`<button class="btn pri" onclick="tts(SP.list[SP.i])">🔊 Dengarkan contoh</button><button class="btn" ${SP.on?'disabled':''} onclick="listen()">${SP.on?'Mendengarkan...':(r?'🎤 Coba lagi':'🎤 Tekan lalu bicara')}</button>`;
+ if(SP.err)h+=`<div class="fb bad">${SP.err}</div>`;
+ if(r){const ok=r.pct>=70;h+=`<div class="fb ${ok?'ok':'bad'}">Akurasi ${r.pct}%. ${ok?'Lolos! +5 koin. ':'Butuh minimal 70%. '}Terdengar: ${r.heard||'(kosong)'}</div><button class="btn pri" onclick="speakNext()">${r.pct>=70||SP.got?(SP.i===2?'Lihat hasil':'Lanjut'):'Lewati'}</button>`}
+ return h}
+function render(){
+ let h='';
+ if(view==='speak'||view==='speakEnd'){h+=speakView()}else if(view==='quiz'){
+  const q=qs[qi],done=picked!==null,right=done&&picked===q[2];
+  h+=`<div class="top"><button class="link" style="width:auto;margin:0" onclick="view='home';render()">Keluar</button><div class="chip"><i class="coin"></i>${S.coins}</div></div>
+  <div class="bar" style="background:var(--line)"><i style="width:${(qi+(done?1:0))/PER*100}%"></i></div>
+  <p class="sub">Soal ${qi+1} dari ${PER}</p><h2 class="q">${q[0]}</h2>`;
+  q[1].forEach((o,i)=>{const c=done?(i===q[2]?'ok':(i===picked?'bad':'')):'';h+=`<button class="opt ${c}" onclick="pick(${i})">${o}</button>`});
+  if(done){h+=`<div class="fb ${right?'ok':'bad'}">${right?'Benar! +'+PER_OK+' koin. ':'Kurang tepat. '}${q[3]}</div><button class="btn pri" onclick="next()">${qi===PER-1?'Lihat hasil':'Lanjut'}</button>`}
+ }else if(view==='result'){
+  const win=score>=TARGET;
+  h+=`<div class="card c" style="margin-top:40px"><p class="sub">Skor kamu</p><div class="big">${score}/${PER}</div>
+  <h2 style="margin-top:10px">${win?'Target tercapai!':'Hampir sampai'}</h2>
+  <p class="sub" style="margin-top:6px">${win?'Bonus +'+BONUS+' koin sudah masuk, ditambah '+score*PER_OK+' koin dari jawaban benar.':'Butuh minimal '+TARGET+' benar untuk bonus. Kamu dapat '+score*PER_OK+' koin dari jawaban benar.'}</p>
+  <button class="btn pri" onclick="${win?"view='home';render()":'start()'}">${win?'Kembali ke beranda':'Coba lagi'}</button>
+  ${win?'':`<button class="link" onclick="view='home';render()">Kembali ke beranda</button>`}</div>`;
+ }else if(tab==='rewards'){
+  h+=`<div class="top"><div><h1 class="hi">Tukar koin</h1><p class="sub">Hadiah contoh untuk demo</p></div><div class="chip"><i class="coin"></i>${S.coins}</div></div>`;
+  PRIZES.forEach((p,i)=>{h+=`<div class="card prize"><div><h3 style="font-size:16px">${p[0]}</h3><p class="sub">${p[1]} koin</p></div><button class="btn pri" ${S.coins<p[1]?'disabled':''} onclick="buy(${i})">Tukar</button></div>`});
+  if(S.owned.length)h+=`<div class="card"><h3 style="font-size:15px">Hadiah saya</h3>${S.owned.map(o=>`<p class="sub" style="margin-top:6px">${o}</p>`).join('')}</div>`;
+  h+=`<p class="note">Koin dan voucher hanya simulasi. Pemberian koin Shopee asli membutuhkan kerja sama resmi dengan Shopee.</p><button class="link" onclick="reset()">Reset demo</button>`;
+ }else{
+  const hari=['S','S','R','K','J','S','M'];
+  h+=`<div class="top"><div><h1 class="hi">Halo, Pelajar!</h1><p class="sub">Level menengah (B1–B2)</p></div><div class="chip"><i class="coin"></i>${S.coins}</div></div>
+  <div class="hero"><h2>Misi hari ini: jawab ${TARGET} dari ${PER} soal dengan benar</h2><p>Capai target dan dapatkan bonus ${BONUS} koin.</p>
+  <div class="bar"><i style="width:${S.doneToday?100:0}%"></i></div><p style="margin:0;font-size:13px">${S.doneToday?'Misi selesai hari ini':'Belum dikerjakan'}</p>
+  <button class="btn" onclick="start()">${S.doneToday?'Latihan lagi':'Mulai misi'}</button></div>
+  <div class="card"><div class="row"><div><h3 style="font-size:16px">Misi speaking</h3><p class="sub">Ucapkan 3 kalimat, 2 lolos dapat bonus 15 koin</p></div><span class="sub">${S.speakDone?'Selesai':'Belum'}</span></div><button class="btn pri" onclick="speakStart()">🎤 Mulai speaking</button></div>
+  <div class="card"><div class="row"><h3 style="font-size:16px">Streak ${S.streak} hari</h3><span class="sub">Minggu ini</span></div>
+  <div class="days">${S.days.map((d,i)=>`<div class="day ${d?'on':''}"><b>${d?'✓':''}</b>${['Sen','Sel','Rab','Kam','Jum','Sab','Min'][i]}</div>`).join('')}</div></div>
+  <div class="card row"><div><h3 style="font-size:16px">Tukar koinmu</h3><p class="sub">Ada 3 hadiah menunggu</p></div><button class="btn pri" style="width:auto;margin:0;padding:10px 16px;font-size:14px" onclick="go('rewards')">Lihat</button></div>`;
+ }
+ $('#app').innerHTML=h+(toast?`<div class="toast">${toast}</div>`:'');
+ $('#nav').innerHTML=view!=='home'&&view!=='rewards'?'':`<button class="tab ${tab==='home'?'on':''}" onclick="go('home')"><span>🏠</span>Beranda</button><button class="tab ${tab==='rewards'?'on':''}" onclick="go('rewards')"><span>🎁</span>Hadiah</button>`;
+ $('nav').style.display=view!=='home'&&view!=='rewards'?'none':'block';
+}
+render();
+</script>
+</body>
+</html>
